@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fierce-backend
+spec:
+  selector:
+    matchLabels:
+      app: fierce-backend
+  template:
+    metadata:
+      labels:
+        app: fierce-backend
+    spec:
+      containers:
+      - name: fierce-backend
+        image: docker.io/mayank3107/fierce-backend
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MONGO_HOST
+          value: mongo.fierce.svc.cluster.local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fierce-backend
+spec:
+  selector:
+    app: fierce-backend
+  ports:
+  - port: 80
+    targetPort: 8000
+

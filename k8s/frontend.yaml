@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fierce-frontend
+spec:
+  selector:
+    matchLabels:
+      app: fierce-frontend
+  template:
+    metadata:
+      labels:
+        app: fierce-frontend
+    spec:
+      containers:
+      - name: fierce-frontend
+        image: docker.io/mayank3107/fierce-frontend
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
+        env:
+        - name: BACKEND_URL
+          value: http://fierce-fierce.fierce.svc.cluster.local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fierce-frontend
+spec:
+  selector:
+    app: fierce-frontend
+  ports:
+  - port: 80
+    targetPort: 9000
+  type : LoadBalancer

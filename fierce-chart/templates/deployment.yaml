@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fierce
+  namespace: leo  # <-- Optional, if you're using a namespace called 'leo'
+spec:
+  selector:
+    matchLabels:
+      app: fierce
+  template:
+    metadata:
+      labels:
+        app: fierce
+    spec:
+      containers:
+      - name: fierce
+        image: docker.io/mayank3107/k8learn:latest
+        
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"

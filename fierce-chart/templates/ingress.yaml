@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fierce 
+  labels:
+    name: fierce 
+spec:
+  rules:
+  - host: <Host>
+    http:
+      paths:
+      - pathType: prefix
+        path: "/"
+        backend:
+          service:
+            name: fierce-frontend
+            port: 
+              number: 80
+  - host: <Host>
+    http:
+      paths:
+      - pathType: prefix
+        path: "/"
+        backend:
+          service:
+            name: fierce-backend
+            port: 
+              number: 80
