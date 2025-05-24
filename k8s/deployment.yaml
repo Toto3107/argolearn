@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fierce
-  namespace: leo  # <-- Optional, if you're using a namespace called 'leo'
+  namespace: fierce  # <-- Optional, if you're using a namespace called 'leo'
 spec:
   selector:
     matchLabels:
