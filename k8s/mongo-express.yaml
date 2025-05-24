@@ -2,11 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-express
+  namespace: fierce
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: mongo-express
-  replicas : 2
   template:
     metadata:
       labels:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: mongo-express
-        image: docker.io/mongo-express
+        image: mongo-express
         env:
         - name: ME_CONFIG_MONGODB_SERVER
           value: mongo.fierce.svc.cluster.local
@@ -25,6 +26,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongo-express
+  namespace: fierce
 spec:
   selector:
     app: mongo-express

@@ -1,28 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fierce 
-  labels:
-    name: fierce 
+  name: fierce
+  namespace: fierce
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: <Host>
+  - host: fierce.local
     http:
       paths:
-      - pathType: prefix
+      - pathType: Prefix
         path: "/"
         backend:
           service:
             name: fierce-frontend
-            port: 
+            port:
               number: 80
-  - host: <Host>
-    http:
-      paths:
-      - pathType: prefix
-        path: "/"
+      - pathType: Prefix
+        path: "/api"
         backend:
           service:
             name: fierce-backend
-            port: 
+            port:
               number: 80
